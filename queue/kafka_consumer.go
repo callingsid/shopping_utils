@@ -30,8 +30,8 @@ func newKafkaConfiguration2() *sarama.Config {
 }
 
 func init() {
-	//brokers := []string{"kafka-0:9092"}
-	brokers := []string{"localhost:9092"}
+	brokers := []string{"kafka-0:9092"}
+	//brokers := []string{"localhost:9092"}
 	// Create new consumer
 	master, err := sarama.NewConsumer(brokers, newKafkaConfiguration2())
 	if err != nil {

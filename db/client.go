@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	hosts    = "127.0.0.1:27017"
-	//hosts = "mongod-0:27017"
+	//hosts    = "127.0.0.1:27017"
+	hosts = "mongod-0:27017"
 	database = "shopping"
 	username = ""
 	password = ""
