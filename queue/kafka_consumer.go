@@ -74,15 +74,17 @@ func (k *kafkaConsumerClient) consume(topics []string) (chan *sarama.ConsumerMes
 			fmt.Printf("Topic %v Partitions: %v", topic, partitions)
 			panic(err)
 		}
-		fmt.Println(" Start consuming topic ", topic)
+		fmt.Println(" Start consuming topics:  ", topic)
 		go func(topic string, consumer sarama.PartitionConsumer) {
 			for {
 				select {
 				case consumerError := <-consumer.Errors():
+					fmt.Println(" Inside consumer case consumer error :  ", consumer.Errors())
 					errors <- consumerError
 					fmt.Println("consumerError: ", consumerError.Err)
 
 				case msg := <-consumer.Messages():
+					fmt.Println("Inside case msg")
 					consumers <- msg
 					logger.Info(fmt.Sprintf("Got message on topic %s, data %s in utils kafka", topic, msg.Value))
 				}
