@@ -76,7 +76,7 @@ func (k *kafkaConsumerClient) consume(topics []string) (chan *sarama.ConsumerMes
 		}
 		fmt.Println(" Start consuming topics:  & partition : ", topic, partitions[0])
 		go func(topic string, consumer sarama.PartitionConsumer) {
-			fmt.Println(" Debug -- inside here go:  ", topic
+			fmt.Println(" Debug -- inside here go:  ", topic)
 			for {
 				select {
 				case consumerError := <-consumer.Errors():
