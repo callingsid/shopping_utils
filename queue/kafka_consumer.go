@@ -69,13 +69,14 @@ func (k *kafkaConsumerClient) consume(topics []string) (chan *sarama.ConsumerMes
 		}
 		partitions, _ := master.Partitions(topic)
 		// this only consumes partition no 1, you would probably want to consume all partitions
-		consumer, err := master.ConsumePartition(topic, partitions[0], sarama.OffsetNewest)
+		consumer, err := master.ConsumePartition(topic, partitions[0], sarama.OffsetOldest)
 		if nil != err {
 			fmt.Printf("Topic %v Partitions: %v", topic, partitions)
 			panic(err)
 		}
-		fmt.Println(" Start consuming topics:  ", topic)
+		fmt.Println(" Start consuming topics:  & partition : ", topic, partitions[0])
 		go func(topic string, consumer sarama.PartitionConsumer) {
+			fmt.Println(" Debug -- inside here go:  ", topic
 			for {
 				select {
 				case consumerError := <-consumer.Errors():
@@ -90,6 +91,7 @@ func (k *kafkaConsumerClient) consume(topics []string) (chan *sarama.ConsumerMes
 				}
 			}
 		}(topic, consumer)
+		fmt.Println(" Debug -- outside here go:  ", topic)
 	}
 	return consumers, errors
 
